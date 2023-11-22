@@ -8,7 +8,7 @@ PKGER=node node_modules/electron-packager/cli.js
 ZIP=node ../zip.js
 
 ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
-ELECTRON_VERSION=1.8.4
+ELECTRON_VERSION=27.1.0
 BUILD=ELECTRON_MIRROR=$(ELECTRON_MIRROR) $(PKGER) ./dist $(NAME) --asar --asar-unpack *.node --overwrite --out=build --version $(ELECTRON_VERSION) --app-version $(VERSION)
 ELECTON=./node_modules/.bin/electron
 
