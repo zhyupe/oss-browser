@@ -54,8 +54,8 @@ obj.crc64StreamProcess = function (p, fn) {
   obj.crc64Stream(p, fn);
 };
 
-obj.combileCrc64Process = function (str1, str2, len2, fn) {
-  obj.combileCrc64Process(str1, str2, len2, function (err, data) {
+obj.combineCrc64Process = function (str1, str2, len2, fn) {
+  obj.combineCrc64Process(str1, str2, len2, function (err, data) {
     fn(err, data);
   });
 };

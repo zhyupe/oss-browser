@@ -95,8 +95,8 @@ exports.crc64Stream = function (stream, toString, callback) {
   });
 };
 
-exports.combileCrc64 = function (str1, str2, len2, callback) {
-  return callback(undefined, binding.combileCrc64(str1, str2, len2));
+exports.combineCrc64 = function (str1, str2, len2, callback) {
+  return callback(undefined, binding.combineCrc64(str1, str2, len2));
 };
 
 exports.crc64Buffer = function (buffer, callback) {

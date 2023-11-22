@@ -14,7 +14,16 @@
       "crc64_ecma182_base"
     ],
     "include_dirs": [
-      "<!(node -e \"require('nan')\")"
+      "<!@(node -p \"require('node-addon-api').include\")"
+    ],
+    "cflags!": [
+      "-fno-exceptions"
+    ],
+    "cflags_cc!": [
+      "-fno-exceptions"
+    ],
+    "defines": [
+      "NAPI_DISABLE_CPP_EXCEPTIONS"
     ]
   }]
 }
