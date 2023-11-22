@@ -3,7 +3,7 @@ angular
     .factory('Dialog', [
       '$uibModal',
       function($modal) {
-        var dialog = require('electron').remote.dialog;
+        var ipc = require('electron').ipcRenderer;
 
         return {
           alert: alert,
@@ -19,28 +19,22 @@ angular
             ? ['openDirectory', 'multiSelections']
             : ['openFile', 'multiSelections'];
 
-          dialog.showOpenDialog(
-              {
-                title: 'Upload',
-                properties: isMac
-                  ? ['openFile', 'openDirectory', 'multiSelections']
-                  : selopt
-              },
-              function(filePaths) {
-                if (typeof fn === 'function') { fn(filePaths); }
-              }
-          );
+          ipc.invoke('showOpenDialog', {
+            title: 'Upload',
+            properties: isMac
+              ? ['openFile', 'openDirectory', 'multiSelections']
+              : selopt
+          }).then(function(filePaths) {
+            if (typeof fn === 'function') { fn(filePaths); }
+          });
         }
         function showDownloadDialog(fn) {
-          dialog.showOpenDialog(
-              {
-                title: 'Download',
-                properties: ['openDirectory']
-              },
-              function(filePaths) {
-                if (typeof fn === 'function') { fn(filePaths); }
-              }
-          );
+          ipc.invoke('showOpenDialog', {
+            title: 'Download',
+            properties: ['openDirectory']
+          }).then(function(filePaths) {
+            if (typeof fn === 'function') { fn(filePaths); }
+          });
         }
 
         /**

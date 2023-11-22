@@ -53,7 +53,7 @@ var win;
 
 if (process.platform == "darwin") {
   app.dock.setIcon(
-    custom.logo_png || path.join(__dirname, "icons", "icon.png")
+    custom.logo_png || path.join(__dirname, "icons", "icon.png"),
   );
 }
 
@@ -67,6 +67,8 @@ function createWindow() {
     icon: custom.logo_ico || path.join(__dirname, "icons", "icon.ico"),
 
     webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
       plugins: true,
     },
   };
@@ -115,7 +117,7 @@ ipcMain.on("asynchronous", (event, data) => {
       event.sender.send("asynchronous-reply", { key: data.key, port: port });
       break;
     case "openDevTools":
-      process.env["DEBUG"] = 'ali-oss';
+      process.env["DEBUG"] = "ali-oss";
       win.webContents.openDevTools();
       break;
 
@@ -135,7 +137,7 @@ ipcMain.on("asynchronous", (event, data) => {
         if (e)
           fs.writeFileSync(
             path.join(os.homedir(), ".oss-browser", "upgrade-error.txt"),
-            JSON.stringify(e)
+            JSON.stringify(e),
           );
         app.relaunch();
         app.exit(0);
@@ -143,6 +145,11 @@ ipcMain.on("asynchronous", (event, data) => {
 
       break;
   }
+});
+
+ipcMain.handle("showOpenDialog", async (e, options) => {
+  const ret = await electron.dialog.showOpenDialog(win, options);
+  return ret.filePaths;
 });
 
 function moveFile(from, to, fn) {
@@ -179,7 +186,8 @@ function moveFile(from, to, fn) {
 }
 
 //singleton
-var shouldQuit = app.makeSingleInstance((commandLine, workingDirectory) => {
+var shouldQuit = !app.requestSingleInstanceLock();
+app.on("second-instance", (event, argv, cwd) => {
   // Someone tried to run a second instance, we should focus our window.
   if (win) {
     if (win.isMinimized()) win.restore();
@@ -222,7 +230,7 @@ app.on(
     // and we then say "it is all fine - true" to the callback
     event.preventDefault();
     callback(true);
-  }
+  },
 );
 
 // In this file you can include the rest of your app's specific main process
