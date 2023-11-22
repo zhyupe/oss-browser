@@ -69,7 +69,7 @@ module.exports = {
         str = item.crc64;
       } else {
         str = await new Promise((resolve, reject) => {
-          util.combileCrc64(str, item.crc64, item.len, (err, data) => {
+          util.combineCrc64(str, item.crc64, item.len, (err, data) => {
             if (err) {
               reject(err);
             } else {
@@ -208,7 +208,7 @@ function headObject(self, objOpt) {
               "headObject error",
               err,
               ", ----- retrying...",
-              `${retryTimes}/${RETRYTIMES}`
+              `${retryTimes}/${RETRYTIMES}`,
             );
             setTimeout(function () {
               if (!self.stopFlag) _dig();
@@ -223,7 +223,7 @@ function getSensibleChunkSize(size) {
   console.warn(
     `localStorage uploadPartSize: " ${
       localStorage.getItem("uploadPartSize") || 10
-    }M`
+    }M`,
   );
 
   var chunkSize =
@@ -263,7 +263,7 @@ function getSensibleChunkSize(size) {
 //根据网速调整下载并发量
 function computeMaxConcurrency(speed, chunkSize, lastConcurrency) {
   var downloadConcurrecyPartSize = parseInt(
-    localStorage.getItem("downloadConcurrecyPartSize") || 5
+    localStorage.getItem("downloadConcurrecyPartSize") || 5,
   );
   return downloadConcurrecyPartSize;
 }

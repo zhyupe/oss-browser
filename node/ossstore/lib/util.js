@@ -22,7 +22,7 @@ module.exports = {
   closeFD: closeFD,
   deleteFileIfExists: deleteFileIfExists,
   createFileIfNotExists: createFileIfNotExists,
-  combileCrc64: combileCrc64,
+  combineCrc64: combineCrc64,
   getBufferCrc64: getBufferCrc64,
   crcFinal: crcFinal,
 };
@@ -53,7 +53,7 @@ function printPartTimeLine(opt) {
   for (var n of t) {
     console.log(
       "%c",
-      `background:green;margin-left:${n.left}px;padding-left:${n.width}px;`
+      `background:green;margin-left:${n.left}px;padding-left:${n.width}px;`,
     );
     //t2.push(`<div style="height:6px;background:green;width:${n.width}px;margin-left:${n.left}px;clear:both;margin-top:1px;"></div>`)
   }
@@ -77,18 +77,18 @@ function checkFileHash(filePath, hashCrc64ecma, fileMd5, fn) {
       if (err) {
         if (isLog == 1) {
           log.error(
-            `Checking file[ ${filePath} ] crc64 hash failed: ${err.message}`
+            `Checking file[ ${filePath} ] crc64 hash failed: ${err.message}`,
           );
         }
         fn(
           new Error(
-            "Checking file[" + filePath + "] crc64 hash failed: " + err.message
-          )
+            "Checking file[" + filePath + "] crc64 hash failed: " + err.message,
+          ),
         );
       } else if (crc64Str != null && crc64Str != hashCrc64ecma) {
         if (isLog == 1) {
           log.error(
-            `HashCrc64ecma mismatch, file[ ${filePath} ] crc64 hash should be: ${hashCrc64ecma} + but we got: ${crc64Str}`
+            `HashCrc64ecma mismatch, file[ ${filePath} ] crc64 hash should be: ${hashCrc64ecma} + but we got: ${crc64Str}`,
           );
         }
 
@@ -99,8 +99,8 @@ function checkFileHash(filePath, hashCrc64ecma, fileMd5, fn) {
               "] crc64 hash should be:" +
               hashCrc64ecma +
               ", but we got:" +
-              crc64Str
-          )
+              crc64Str,
+          ),
         );
       } else {
         if (isLog == 1 && isLogInfo == 1) {
@@ -123,8 +123,8 @@ function checkFileHash(filePath, hashCrc64ecma, fileMd5, fn) {
             "ContentMD5 mismatch, file md5 should be:" +
               fileMd5 +
               ", but we got:" +
-              md5str
-          )
+              md5str,
+          ),
         );
       } else {
         console.info("check md5 success: file[" + filePath + "]," + md5str);
@@ -243,8 +243,8 @@ function getStreamCrc64(p, fn) {
  * @param len2
  * @param fn
  */
-function combileCrc64(str1, str2, len2, fn) {
-  CRC64.combileCrc64(str1, str2, len2, function (err, data) {
+function combineCrc64(str1, str2, len2, fn) {
+  CRC64.combineCrc64(str1, str2, len2, function (err, data) {
     fn(err, data);
   });
 }
@@ -282,7 +282,7 @@ function crcFinal(arr) {
   var temp = arr[0].crc;
   var length = arr.length;
   for (var i = 0; i < length - 1; i++) {
-    combileCrc64(temp, arr[i + 1].crc, arr[i + 1].len, function (err, data) {
+    combineCrc64(temp, arr[i + 1].crc, arr[i + 1].len, function (err, data) {
       if (err) console.log(err);
       temp = data;
     });

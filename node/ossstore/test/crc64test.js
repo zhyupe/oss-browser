@@ -29,12 +29,14 @@ util.getStreamCrc64(stream, function (err, data) {
   data.should.equal("12426971715046612902");
 });
 // //
-util.combileCrc64("12426971715046612902", "12896971715046612902", 20, function (
-  err,
-  data
-) {
-  console.log(err, data);
-});
+util.combineCrc64(
+  "12426971715046612902",
+  "12896971715046612902",
+  20,
+  function (err, data) {
+    console.log(err, data);
+  },
+);
 
 streamToBuffer(stream).then(function (res) {
   util.getBufferCrc64(res, function (err, data) {

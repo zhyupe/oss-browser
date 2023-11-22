@@ -13,7 +13,7 @@ var start = new Date();
 let temp = crc[0];
 for (var i = 0; i < 2499; i++) {
   console.log(i);
-  util.combileCrc64(temp, crc[i + 1], 41943040, function (err, data) {
+  util.combineCrc64(temp, crc[i + 1], 41943040, function (err, data) {
     if (err) console.log(err);
     temp = data;
     console.log(data);
