@@ -1,19 +1,19 @@
 
-VERSION=1.17.0
+VERSION=1.17.1
 NAME=oss-browser
 CUSTOM=./custom
 
 GULP=node ./node_modules/gulp/bin/gulp.js
-PKGER=node node_modules/electron-packager/cli.js
+PKGER=node node_modules/@electron/packager/bin/electron-packager.js
 ZIP=node ../zip.js
 
 ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/
 ELECTRON_VERSION=27.1.0
-BUILD=ELECTRON_MIRROR=$(ELECTRON_MIRROR) $(PKGER) ./dist $(NAME) --asar --asar-unpack *.node --overwrite --out=build --version $(ELECTRON_VERSION) --app-version $(VERSION)
+BUILD=ELECTRON_MIRROR=$(ELECTRON_MIRROR) $(PKGER) ./dist $(NAME) --asar.unpack *.node --overwrite --out=build --electron-version $(ELECTRON_VERSION) --app-version $(VERSION)
 ELECTON=./node_modules/.bin/electron
 
 i:
-	cnpm i
+	npm i
 clean:
 	rm -rf dist node_modules build releases node/crc64/cpp-addon/node_modules node/crc64/electron-crc64-prebuild/node_modules node/ossstore/node_modules
 dev:
