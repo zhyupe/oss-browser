@@ -13,7 +13,7 @@ var RETRYTIMES = commonUtil.getRetryTimes();
 var isLog = localStorage.getItem("logFile") || 0;
 var isLogInfo = localStorage.getItem("logFileInfo") || 0;
 //本地日志收集模块
-var log = require("electron-log");
+var log = require("electron-log/renderer");
 
 var { ipcRenderer } = require("electron");
 

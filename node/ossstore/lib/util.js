@@ -8,7 +8,7 @@ var CRC64 = require("../../crc64/index.js");
 var isLog = localStorage.getItem("logFile") || 0;
 var isLogInfo = localStorage.getItem("logFileInfo") || 0;
 //本地日志收集模块
-var log = require("electron-log");
+var log = require("electron-log/renderer");
 
 module.exports = {
   parseLocalPath: parseLocalPath,

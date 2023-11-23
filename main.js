@@ -16,7 +16,7 @@ var path = require("path");
 var nativeImage = require("electron").nativeImage;
 
 // electron-log收集和引入
-var log = require("electron-log");
+var log = require("electron-log/main");
 log.transports.file.level = false;
 log.transports.console.level = false;
 
